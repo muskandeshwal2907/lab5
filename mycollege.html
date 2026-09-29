@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jain University Bachelor of Technology (B.Tech) courses, engineering departments, and campus announcements.">
+    
+    <!-- Requirement (a): Page title about the college -->
+    <title>My College - Jain University</title>
+
+    <!-- Google Fonts for typography variety -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Fira+Code:wght@500;600;700&family=Lora:ital,wght@0,500;0,700;1,500;1,700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@500;600;700&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           Requirement (b): Full-page background with college.jpg, blue gradient 
+           fallback, and dark semi-transparent overlay
+           ========================================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* Blue gradient fallback, college.jpg image, and dark semi-transparent overlay */
+            background-color: #0d1b2a;
+            background-image: 
+                linear-gradient(rgba(10, 20, 38, 0.85), rgba(10, 20, 38, 0.90)),
+                url('college.jpg'),
+                linear-gradient(135deg, #0a192f 0%, #1e3a8a 50%, #0284c7 100%);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            /* Bottom padding so the fixed marquee bar does not cover any content (Requirement e) */
+            padding-bottom: 70px;
+            box-sizing: border-box;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 30px 20px 40px;
+        }
+
+        /* ==========================================================================
+           Requirement (c): Header with college name in large serif font (about 64px)
+           and address in a much smaller size
+           ========================================================================== */
+        header.college-header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .university-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(30, 58, 138, 0.4));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #7dd3fc;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .college-title {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+        }
+
+        .college-address {
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            color: #cbd5e1;
+            margin: 0;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .college-address svg {
+            width: 18px;
+            height: 18px;
+            fill: #38bdf8;
+        }
+
+        /* ==========================================================================
+           Requirement (d): Courses offered under "Bachelor of Technology (B.Tech)"
+           in a responsive grid. Every course has its own unique color and varying
+           typefaces/font styles (italic, bold, underline, small-caps, uppercase,
+           letter-spacing) with at least 8 font families cycled through. Each course
+           is a link that opens in a new tab.
+           ========================================================================== */
+        .programme-section {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 35px 30px 40px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .main-heading-wrapper {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .main-heading {
+            font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .main-heading::after {
+            content: '';
+            display: block;
+            width: 90px;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        .sub-heading {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #93c5fd;
+            margin: 35px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(147, 197, 253, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-heading-icon {
+            font-size: 20px;
+        }
+
+        /* Responsive Grid that wraps on small screens */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+        }
+
+        /* Individual Course Card Link */
+        .course-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: currentColor;
+            opacity: 0.8;
+            transition: width 0.25s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            background: rgba(30, 41, 59, 0.95);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        .course-card:hover::before {
+            width: 7px;
+        }
+
+        .course-content {
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .external-icon {
+            flex-shrink: 0;
+            opacity: 0.6;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            color: #94a3b8;
+        }
+
+        .course-card:hover .external-icon {
+            opacity: 1;
+            transform: translate(2px, -2px);
+            color: #ffffff;
+        }
+
+        /* --------------------------------------------------------------------------
+           Specific Typography, Unique Color, and Font Style Variations for every course
+           Using 8+ font families:
+           1. Cinzel
+           2. Merriweather
+           3. Oswald
+           4. Poppins
+           5. Playfair Display
+           6. Fira Code
+           7. Lora
+           8. Raleway
+           -------------------------------------------------------------------------- */
+
+        /* 1. Aerospace Engineering */
+        .course-1 {
+            color: #38bdf8; /* Sky Blue */
+            font-family: 'Cinzel', Georgia, serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 14.5px;
+        }
+
+        /* 2. Civil Engineering */
+        .course-2 {
+            color: #4ade80; /* Emerald Green */
+            font-family: 'Merriweather', Georgia, serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* 3. Mechanical Engineering */
+        .course-3 {
+            color: #fb923c; /* Tangerine Orange */
+            font-family: 'Oswald', Impact, sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 15.5px;
+        }
+
+        /* 4. Computer Science Engineering */
+        .course-4 {
+            color: #f472b6; /* Hot Rose Pink */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-decoration: underline;
+            font-size: 15px;
+        }
+
+        /* 5. Electrical & Electronics Engineering */
+        .course-5 {
+            color: #fbbf24; /* Amber Gold */
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            text-decoration: underline;
+            letter-spacing: 0.5px;
+            font-size: 15px;
+        }
+
+        /* 6. Electronics and Communications Engineering */
+        .course-6 {
+            color: #2dd4bf; /* Vibrant Teal Cyan */
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-size: 13.5px;
+        }
+
+        /* 7. Information Science and Engineering */
+        .course-7 {
+            color: #a78bfa; /* Soft Lavender Purple */
+            font-family: 'Lora', Georgia, serif;
+            font-variant: small-caps;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            font-size: 16px;
+        }
+
+        /* 8. Computer Science & Engineering */
+        .course-8 {
+            color: #60a5fa; /* Cobalt Blue */
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-size: 14.5px;
+        }
+
+        /* 9. CSE (Cloud Technology and Information Security) */
+        .course-9 {
+            color: #e879f9; /* Bright Orchid Magenta */
+            font-family: 'Cinzel', Georgia, serif;
+            font-variant: small-caps;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            font-size: 14.5px;
+        }
+
+        /* 10. CSE (Mobile Applications and Cloud Technology) */
+        .course-10 {
+            color: #34d399; /* Mint Green */
+            font-family: 'Merriweather', Georgia, serif;
+            font-style: italic;
+            text-decoration: underline;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* 11. CSE (Artificial Intelligence and Machine learning) */
+        .course-11 {
+            color: #facc15; /* Bright Gold */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 13.5px;
+        }
+
+        /* 12. CSE (Artificial Intelligence and Data Engineering) */
+        .course-12 {
+            color: #f87171; /* Coral Red */
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 14.5px;
+        }
+
+        /* 13. CSE (Blockchain Technology) */
+        .course-13 {
+            color: #22d3ee; /* Electric Cyan */
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-weight: 700;
+            text-decoration: underline;
+            letter-spacing: 0.5px;
+            font-size: 14px;
+        }
+
+        /* 14. CSE (Cyber Physical Systems) */
+        .course-14 {
+            color: #c084fc; /* Bright Violet */
+            font-family: 'Oswald', Impact, sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 15.5px;
+        }
+
+        /* 15. CSE (AI-Driven DevOps) */
+        .course-15 {
+            color: #ff7849; /* Flame Orange */
+            font-family: 'Lora', Georgia, serif;
+            font-variant: small-caps;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* 16. Computer Science and Business Systems */
+        .course-16 {
+            color: #a3e635; /* Bright Lime Green */
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            text-decoration: underline;
+            letter-spacing: 1px;
+            font-size: 14.5px;
+        }
+
+        /* 17. CSE - Internet of Things */
+        .course-17 {
+            color: #818cf8; /* Royal Indigo */
+            font-family: 'Cinzel', Georgia, serif;
+            font-variant: small-caps;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-size: 14.5px;
+        }
+
+        /* 18. Computer Engineering - Software Engineering */
+        .course-18 {
+            color: #f43f5e; /* Crimson Rose */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 13.5px;
+            letter-spacing: 1px;
+        }
+
+        /* 19. CSE - Artificial Intelligence */
+        .course-19 {
+            color: #00f2fe; /* Neon Cyan */
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            text-decoration: underline;
+            font-size: 15px;
+        }
+
+        /* 20. CSE (Cyber Security) */
+        .course-20 {
+            color: #fdba74; /* Peach Orange */
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-size: 14px;
+        }
+
+        /* 21. CSE - Data Science */
+        .course-21 {
+            color: #d946ef; /* Neon Magenta */
+            font-family: 'Merriweather', Georgia, serif;
+            font-style: italic;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 14.5px;
+        }
+
+        /* 22. CSE (GenAI) */
+        .course-22 {
+            color: #6ee7b7; /* Bright Aquamarine */
+            font-family: 'Oswald', Impact, sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: underline;
+            letter-spacing: 2.5px;
+            font-size: 15px;
+        }
+
+        /* ==========================================================================
+           Requirement (e): Fixed bar at the bottom with <marquee> scrolling
+           right-to-left with red background and white text
+           ========================================================================== */
+        .marquee-footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #dc2626; /* Red background */
+            color: #ffffff;            /* White text */
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Poppins', sans-serif;
+            border-top: 2px solid #ef4444;
+        }
+
+        .marquee-label {
+            background-color: #991b1b;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0 18px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .marquee-container {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        marquee {
+            width: 100%;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            color: #ffffff;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .college-title {
+                font-size: 42px;
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            .programme-section {
+                padding: 24px 18px;
+            }
+            .main-heading {
+                font-size: 26px;
+            }
+            .marquee-label {
+                font-size: 11px;
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ====================================================================
+             Requirement (c): College Header with name in large serif font (approx 64px)
+             and address in a much smaller size
+             ==================================================================== -->
+        <header class="college-header">
+            <div class="university-badge">Deemed-to-be-University</div>
+            <h1 class="college-title">Jain University</h1>
+            <p class="college-address">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                Bengaluru, Karnataka, India
+            </p>
+        </header>
+
+        <!-- ====================================================================
+             Requirement (d): Courses offered under Bachelor of Technology (B.Tech)
+             in a responsive grid. Every course has unique color, varying fonts &
+             styles, and opens in a new tab.
+             ==================================================================== -->
+        <main class="programme-section">
+            <div class="main-heading-wrapper">
+                <h2 class="main-heading">Bachelor of Technology (B.Tech)</h2>
+            </div>
+
+            <!-- Departments Section -->
+            <h3 class="sub-heading">
+                <span class="sub-heading-icon">🏛️</span>
+                Departments
+            </h3>
+            <div class="courses-grid">
+                <!-- Course 1: Aerospace Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-1">
+                    <div class="course-content">Department of Aerospace Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 2: Civil Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-2">
+                    <div class="course-content">Department of Civil Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 3: Mechanical Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-3">
+                    <div class="course-content">Department of Mechanical Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 4: Computer Science Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-4">
+                    <div class="course-content">Department of Computer Science Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 5: Electrical & Electronics Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-5">
+                    <div class="course-content">Department of Electrical & Electronics Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 6: Electronics and Communications Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-6">
+                    <div class="course-content">Department of Electronics and Communications Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 7: Information Science and Engineering -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-7">
+                    <div class="course-content">Department of Information Science and Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Computer Science & Engineering Programmes Section -->
+            <h3 class="sub-heading">
+                <span class="sub-heading-icon">💻</span>
+                Computer Science & Engineering programmes
+            </h3>
+            <div class="courses-grid">
+                <!-- Course 8 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-8">
+                    <div class="course-content">Computer Science & Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 9 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-9">
+                    <div class="course-content">Computer Science & Engineering (Cloud Technology and Information Security)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 10 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-10">
+                    <div class="course-content">Computer Science & Engineering (Mobile Applications and Cloud Technology)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 11 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-11">
+                    <div class="course-content">Computer Science & Engineering (Artificial Intelligence and Machine learning)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 12 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-12">
+                    <div class="course-content">Computer Science & Engineering (Artificial Intelligence and Data Engineering)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 13 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-13">
+                    <div class="course-content">Computer Science & Engineering (Blockchain Technology)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 14 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-14">
+                    <div class="course-content">Computer Science & Engineering (Cyber Physical Systems)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 15 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-15">
+                    <div class="course-content">Computer Science & Engineering (AI-Driven DevOps)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 16 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-16">
+                    <div class="course-content">Computer Science and Business Systems</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 17 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-17">
+                    <div class="course-content">Computer Science and Engineering - Internet of Things</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 18 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-18">
+                    <div class="course-content">Computer Engineering - Software Engineering</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 19 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-19">
+                    <div class="course-content">Computer Science and Engineering - Artificial Intelligence</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 20 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-20">
+                    <div class="course-content">Computer Science and Engineering (Cyber Security)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 21 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-21">
+                    <div class="course-content">Computer Science and Engineering - Data Science</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+
+                <!-- Course 22 -->
+                <a href="https://www.jainuniversity.ac.in" target="_blank" rel="noopener noreferrer" class="course-card course-22">
+                    <div class="course-content">Computer Science & Engineering (GenAI)</div>
+                    <svg class="external-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================================================
+         Requirement (e): Fixed bar at bottom with <marquee> scrolling right-to-left
+         with upcoming events message, red background, white text, and bottom page padding
+         ======================================================================== -->
+    <footer class="marquee-footer-bar">
+        <div class="marquee-label">📢 Notice Board</div>
+        <div class="marquee-container">
+            <marquee direction="left" scrollamount="6" behavior="scroll">
+                Mid-semester exams begin 15 October &nbsp;&nbsp;|&nbsp;&nbsp; Annual Tech Fest on 5 November &nbsp;&nbsp;|&nbsp;&nbsp; Last date for fee payment: 30 October &nbsp;&nbsp;|&nbsp;&nbsp; Final exams start 10 December &nbsp;&nbsp;|&nbsp;&nbsp; Jain University Admissions Open for 2026-27 Academic Year
+            </marquee>
+        </div>
+    </footer>
+
+</body>
+</html>
